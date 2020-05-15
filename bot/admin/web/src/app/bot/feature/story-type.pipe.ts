@@ -21,10 +21,10 @@ export class StoryTypePipe implements PipeTransform{
   transform(type: string): any {
     let icon: string;
     switch (type) {
-      case 'Enable':
+      case 'enable_bot':
         icon = 'check_circle_outline';
         break;
-      case 'Disable':
+      case 'disable_bot':
         icon = 'highlight_off';
         break;
       default:

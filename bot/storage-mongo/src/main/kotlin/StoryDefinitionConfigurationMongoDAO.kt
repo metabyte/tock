@@ -42,6 +42,7 @@ import org.litote.kmongo.findOne
 import org.litote.kmongo.findOneById
 import org.litote.kmongo.getCollection
 import org.litote.kmongo.getCollectionOfName
+import org.litote.kmongo.or
 import org.litote.kmongo.reactivestreams.getCollectionOfName
 import org.litote.kmongo.save
 import java.time.Instant
@@ -84,6 +85,10 @@ internal object StoryDefinitionConfigurationMongoDAO : StoryDefinitionConfigurat
 
     override fun getStoryDefinitionById(id: Id<StoryDefinitionConfiguration>): StoryDefinitionConfiguration? {
         return col.findOneById(id)
+    }
+
+    override fun getRuntimeStorySettings(namespace: String): List<StoryDefinitionConfiguration>? {
+        return col.find(and(Namespace eq namespace, or(StoryId eq "disable_bot", StoryId eq "enable_bot"))).toList()
     }
 
     override fun getStoryDefinitionByNamespaceAndBotIdAndIntent(namespace: String, botId: String, intent: String): StoryDefinitionConfiguration? {

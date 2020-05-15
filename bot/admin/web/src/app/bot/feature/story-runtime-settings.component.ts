@@ -17,9 +17,14 @@
 import {Component, OnInit} from "@angular/core";
 import {BotService} from "../bot-service";
 
-export interface RuntimeStorySettings {
+export class RuntimeStorySettings {
   name: string;
-  type: string
+  type: string;
+
+  constructor(name: string, type: string) {
+    this.name = name;
+    this.type = type;
+  }
 }
 
 @Component({
@@ -36,20 +41,16 @@ export class StoryRuntimeSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.stories = new Array<RuntimeStorySettings>();
-    // TODO: develop REST service for retrieving the RuntimeStorySettings
-    this.botService.findStory('disable_bot').subscribe(
+    this.botService.findRuntimeStorySettings().subscribe(
       this.buildAndAddSettings()
     );
-    this.botService.findStory('enable_bot').subscribe(
-      this.buildAndAddSettings()
-    );
-    this.stories.push()
   }
 
   private buildAndAddSettings() {
-    return story => {
-      const settings: RuntimeStorySettings = {'name': story.storyId, 'type': story.storyId};
-      this.stories.push(settings);
+    return stories => {
+      this.stories = stories.map(story => {
+        new RuntimeStorySettings(story.name, story.storyId);
+      })
     };
   }
 }

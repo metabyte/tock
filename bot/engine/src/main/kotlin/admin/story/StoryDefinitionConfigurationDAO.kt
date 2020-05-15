@@ -30,6 +30,8 @@ interface StoryDefinitionConfigurationDAO {
 
     fun getStoryDefinitionById(id: Id<StoryDefinitionConfiguration>): StoryDefinitionConfiguration?
 
+    fun getRuntimeStorySettings(namespace: String): List<StoryDefinitionConfiguration>?
+
     fun getStoryDefinitionByNamespaceAndBotIdAndIntent(namespace: String, botId: String, intent: String): StoryDefinitionConfiguration?
 
     fun getStoryDefinitionByNamespaceAndBotIdAndStoryId(namespace: String, botId: String, storyId: String): StoryDefinitionConfiguration?
