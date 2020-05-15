@@ -306,6 +306,11 @@ object BotAdminService {
         return loadStory(namespace, story)
     }
 
+    fun findStory(namespace: String, botId: String, storyDefinitionId: String): BotStoryDefinitionConfiguration? {
+        val story = storyDefinitionDAO.getStoryDefinitionById(storyDefinitionId.toId())
+        return loadStory(namespace, story)
+    }
+
     private fun loadStory(namespace: String, conf: StoryDefinitionConfiguration?): BotStoryDefinitionConfiguration? {
         if (conf != null) {
             val botConf = getBotConfigurationsByNamespaceAndBotId(namespace, conf.botId).firstOrNull()

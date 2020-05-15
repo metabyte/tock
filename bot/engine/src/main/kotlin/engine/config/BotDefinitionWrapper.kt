@@ -37,6 +37,12 @@ internal class BotDefinitionWrapper(val botDefinition: BotDefinition) : BotDefin
     @Volatile
     private var allStories: List<StoryDefinition> = botDefinition.stories
 
+    override val botDisabledStory: StoryDefinition?
+        get() = botDefinition.botDisabledStory ?: allStories.find { it.id == "disable_bot" }
+
+    override val botEnabledStory: StoryDefinition?
+        get() = botDefinition.botEnabledStory ?: allStories.find { it.id == "enable_bot" }
+
     fun updateStories(configuredStories: List<ConfiguredStoryDefinition>) {
         logger.debug { "refresh configured stories for ${botDefinition.botId}" }
         this.configuredStories = configuredStories.filter { it.answerType != builtin }.groupBy { it.id }
