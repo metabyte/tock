@@ -16,16 +16,8 @@
 
 import {Component, OnInit} from "@angular/core";
 import {BotService} from "../bot-service";
+import {StoryDefinitionConfiguration} from "../model/story";
 
-export class RuntimeStorySettings {
-  name: string;
-  type: string;
-
-  constructor(name: string, type: string) {
-    this.name = name;
-    this.type = type;
-  }
-}
 
 @Component({
   selector: 'tock-story-runtime-settings',
@@ -34,23 +26,14 @@ export class RuntimeStorySettings {
 })
 export class StoryRuntimeSettingsComponent implements OnInit {
   displayedColumns: string[] = ['storyType', 'storyName'];
-  stories: RuntimeStorySettings[];
+  stories: StoryDefinitionConfiguration[];
 
   constructor(private botService: BotService) {
   }
 
   ngOnInit(): void {
-    this.stories = new Array<RuntimeStorySettings>();
     this.botService.findRuntimeStorySettings().subscribe(
-      this.buildAndAddSettings()
+       stories => this.stories = stories
     );
-  }
-
-  private buildAndAddSettings() {
-    return stories => {
-      this.stories = stories.map(story => {
-        new RuntimeStorySettings(story.name, story.storyId);
-      })
-    };
   }
 }

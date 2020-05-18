@@ -22,8 +22,8 @@
       <ng-container matColumnDef="storyType">
         <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
         <mat-cell *matCellDef="let story">
-          <mat-icon class="{{story.type | storyTypeIcon}}"></mat-icon>
-          <span>&nbsp;{{story.type}}</span>
+          <mat-icon class="{{story.storyId | storyTypeIcon}}"></mat-icon>
+          <span>&nbsp;{{story.storyId}}</span>
         </mat-cell>
       </ng-container>
 
